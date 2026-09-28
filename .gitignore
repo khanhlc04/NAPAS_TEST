@@ -1,0 +1,27 @@
+# Tài liệu cá nhân (đề bài, hội thoại, spec) giữ trên máy, không đưa lên git
+docs/
+
+# Node / Next.js
+node_modules/
+.next/
+out/
+dist/
+coverage/
+*.log
+*.tsbuildinfo
+
+# Biến môi trường và bí mật
+.env
+.env.*
+!.env.example
+
+# Vercel / Supabase
+.vercel/
+supabase/.temp/
+supabase/.branches/
+
+# Công cụ, hệ điều hành
+.omc/
+.claude/settings.local.json
+.DS_Store
+.idea/
