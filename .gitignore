@@ -25,3 +25,6 @@ supabase/.branches/
 .claude/settings.local.json
 .DS_Store
 .idea/
+
+# Next.js tự sinh mỗi lần build
+next-env.d.ts

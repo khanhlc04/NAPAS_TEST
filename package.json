@@ -1,0 +1,34 @@
+{
+  "name": "napas-hub",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "eval:jev": "tsx --env-file=.env.local scripts/jev-eval.mts",
+    "probe": "tsx --env-file=.env.local scripts/probe.mts"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.117.2",
+    "@typesafe-ai/sdk": "^0.6.0",
+    "next": "^16.3.7",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.4",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "tsx": "^4.23.15",
+    "typescript": "^5.9.3",
+    "vitest": "^5.0.2"
+  }
+}
