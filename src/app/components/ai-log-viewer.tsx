@@ -2,7 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { formatDateTime } from "@/lib/format";
-import { seedSampleLogsAction, clearSampleLogsAction, revalidateLogsAction } from "@/app/actions";
+import { revalidateLogsAction } from "@/app/actions";
 
 export interface ExtractionItem {
   id: string;
@@ -49,7 +49,7 @@ export function AiLogViewer({ initialLogs, jiraBaseUrl, kpi }: Props) {
   const [isPending, startTransition] = useTransition();
   const [copied, setCopied] = useState(false);
 
-  // Filter logs by search and outcome
+  // Lọc nhật ký theo từ khóa tìm kiếm và trạng thái
   const filteredLogs = initialLogs.filter((log) => {
     const matchesSearch =
       search.trim() === "" ||
@@ -62,18 +62,6 @@ export function AiLogViewer({ initialLogs, jiraBaseUrl, kpi }: Props) {
     return matchesSearch && matchesOutcome;
   });
 
-  const handleSeed = () => {
-    startTransition(async () => {
-      await seedSampleLogsAction();
-    });
-  };
-
-  const handleClear = () => {
-    startTransition(async () => {
-      await clearSampleLogsAction();
-    });
-  };
-
   const handleRefresh = () => {
     startTransition(async () => {
       await revalidateLogsAction();
@@ -85,8 +73,6 @@ export function AiLogViewer({ initialLogs, jiraBaseUrl, kpi }: Props) {
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
-
-  const hasDemoLogs = initialLogs.some((l) => l.issue_key.startsWith("DEMO-"));
 
   return (
     <div className="app-container">
@@ -112,26 +98,6 @@ export function AiLogViewer({ initialLogs, jiraBaseUrl, kpi }: Props) {
           >
             {isPending ? "Đang tải..." : "🔄 Làm mới"}
           </button>
-
-          {!hasDemoLogs ? (
-            <button
-              onClick={handleSeed}
-              disabled={isPending}
-              className="btn btn-primary btn-sm"
-              title="Nạp 6 bản ghi mẫu thực tế để kiểm tra giao diện"
-            >
-              ➕ Nạp dữ liệu mẫu
-            </button>
-          ) : (
-            <button
-              onClick={handleClear}
-              disabled={isPending}
-              className="btn btn-danger btn-sm"
-              title="Xóa các bản ghi mẫu DEMO-*"
-            >
-              🗑️ Xóa dữ liệu mẫu
-            </button>
-          )}
         </div>
       </header>
 
@@ -177,7 +143,7 @@ export function AiLogViewer({ initialLogs, jiraBaseUrl, kpi }: Props) {
           <input
             type="text"
             className="search-input"
-            placeholder="Tìm theo mã yêu cầu (VD: CQ-1, DEMO-101) hoặc mô hình..."
+            placeholder="Tìm theo mã yêu cầu (VD: CQ-1) hoặc mô hình..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
@@ -227,14 +193,9 @@ export function AiLogViewer({ initialLogs, jiraBaseUrl, kpi }: Props) {
             </h3>
             <p className="empty-desc">
               {initialLogs.length === 0
-                ? "Khi người dùng gửi email đến hộp thư tiếp nhận của Jira, Rule R1 sẽ kích hoạt API Hub đọc email và lưu lại dấu vết tại đây."
+                ? "Khi nhân viên gửi email đến địa chỉ tiếp nhận của Jira, Rule R1 sẽ gọi Hub (/api/jira/email-intake) để bóc tách thông tin và tự động lưu nhật ký tại đây."
                 : "Thử đổi từ khóa tìm kiếm hoặc bấm chọn 'Tất cả' để hiển thị lại danh sách."}
             </p>
-            {initialLogs.length === 0 && (
-              <button onClick={handleSeed} disabled={isPending} className="btn btn-primary btn-sm">
-                Nạp 6 bản ghi mẫu để xem giao diện ngay
-              </button>
-            )}
           </div>
         ) : (
           <table className="data-table">
@@ -262,21 +223,15 @@ export function AiLogViewer({ initialLogs, jiraBaseUrl, kpi }: Props) {
                       {formatDateTime(log.created_at)}
                     </td>
                     <td>
-                      {log.issue_key.startsWith("DEMO-") ? (
-                        <span className="code-pill" style={{ background: "rgba(56, 189, 248, 0.15)", color: "#38bdf8" }}>
-                          {log.issue_key} <span style={{ fontSize: "0.7rem", opacity: 0.8 }}>(mẫu)</span>
-                        </span>
-                      ) : (
-                        <a
-                          href={`${jiraBaseUrl}/browse/${log.issue_key}`}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="jira-link"
-                          title="Mở yêu cầu trên Jira"
-                        >
-                          {log.issue_key} ↗
-                        </a>
-                      )}
+                      <a
+                        href={`${jiraBaseUrl}/browse/${log.issue_key}`}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="jira-link"
+                        title="Mở yêu cầu trên Jira"
+                      >
+                        {log.issue_key} ↗
+                      </a>
                     </td>
                     <td>
                       <span className="code-pill">#{log.attempt}</span>
