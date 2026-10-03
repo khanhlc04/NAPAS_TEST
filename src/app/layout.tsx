@@ -1,8 +1,9 @@
 import type { ReactNode } from "react";
+import "./globals.css";
 
 export const metadata = {
-  title: "Automation Hub",
-  description: "Cầu nối Jira, AI và Supabase cho quy trình cấp quyền truy cập",
+  title: "Nhật ký AI đọc email | Automation Hub",
+  description: "Bảng theo dõi và kiểm soát nhật ký AI xử lý yêu cầu cấp quyền CNTT",
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
