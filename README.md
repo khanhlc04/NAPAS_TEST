@@ -32,11 +32,20 @@ Nếu trình duyệt hiện trang đăng nhập Vercel thay vì trang nhật ký
 
 ## 2. Xem Jira
 
-Jira là site dùng thử, không có link công khai cho người lạ. Tác giả gửi riêng một **tài khoản chỉ đọc** (email và hướng dẫn đặt mật khẩu). Thông tin đăng nhập không đưa vào repo này.
+Đây là site Jira **dùng thử, chỉ chứa dữ liệu mẫu** để minh họa bài thực hành. Jira không có link công khai cho người lạ, nên tác giả cấp sẵn một tài khoản xem:
+
+| Mục | Giá trị |
+|---|---|
+| Địa chỉ | https://khanhlc04.atlassian.net |
+| Loại tài khoản | Tài khoản Atlassian, vai trò **Service Desk Team** (agent) trong project `CQ`, không phải quản trị viên |
+| Email | `khanhlc04+reviewer@gmail.com` |
+| Mật khẩu | `Reviewer@123` |
+
+Vai trò Service Desk Team vào được hàng đợi, ticket và quy tắc Automation, nhưng không quản trị site và không phát sinh chi phí. Tài khoản này sửa được ticket, nên xin chỉ xem và không đổi dữ liệu.
 
 Các bước:
 
-1. Mở **https://khanhlc04.atlassian.net** và đăng nhập bằng tài khoản được gửi.
+1. Mở **https://khanhlc04.atlassian.net** và đăng nhập bằng tài khoản ở bảng trên.
 2. Hàng đợi và ticket: **https://khanhlc04.atlassian.net/jira/servicedesk/projects/CQ/queues**
 3. Cổng gửi yêu cầu (góc nhìn của nhân viên): **https://khanhlc04.atlassian.net/servicedesk/customer/portals**
 4. Quy tắc Automation: trong project `CQ`, mở **Project settings → Automation**.
